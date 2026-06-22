@@ -1,0 +1,21 @@
+# Swift Package Manager build artifacts
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Xcode (if someone opens the package in Xcode)
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# Built app bundle (lives on Desktop, not in the repo)
+*.app
+
+# Editor / OS
+.idea/
+*.swp
+*~

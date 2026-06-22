@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Config/Info.plist
+  =================
+  per-app audio menu-bar-only macOS app that taps another application's
+  audio output (Core Audio Process Tap API), runs it through a 10-band
+  parametric EQ + per-app volume, and routes it to a chosen output device.
+
+  WHY each key matters (the load-bearing ones for this app):
+
+  * NSAudioCaptureUsageDescription  ->  This is THE correct privacy-purpose
+        key for the Core Audio process-tap / system-audio-capture TCC service
+        (kTCCServiceAudioCapture). Process taps capture OTHER apps' / the
+        system's *output*, which is a distinct privacy class from the
+        microphone. Using only NSMicrophoneUsageDescription would NOT satisfy
+        the audio-capture consent prompt that fires the first time the
+        aggregate-device IOProc starts pulling tapped audio. There is no
+        public API to pre-request this permission; the OS shows the dialog
+        (with this string) on first capture. The key is added MANUALLY here
+        because Xcode does not list it in the Info.plist dropdown.
+
+  * LSUIElement = true  ->  Makes the app a menu-bar-only agent: no Dock icon,
+        no app menu, lives entirely in the status bar via MenuBarExtra. This
+        does NOT affect TCC prompting; an LSUIElement agent can still present
+        the audio-capture consent dialog.
+
+  * LSMinimumSystemVersion = 14.2  ->  The Core Audio tap symbols
+        (AudioHardwareCreateProcessTap, CATapDescription) LINK from macOS 14.2.
+        Apple documents/supports 14.4 as the practical recording baseline, so
+        the tap CODE is additionally gated at runtime with
+        @available(macOS 14.4, *). The plist floor is set to the link floor
+        (14.2) per the spec ("LSMinimumSystemVersion 14.2"); the stricter 14.4
+        gate is enforced in Swift, not the plist, so process/device enumeration
+        (14.0+) and the rest of the UI can still load on 14.2/14.3 while the
+        tap features remain unavailable there.
+
+  NOTE: NSMicrophoneUsageDescription is intentionally NOT included. This app
+  does not record the microphone; it taps application output. Adding the mic
+  key would request an unrelated permission and would not help the tap. (See
+  assumptions if mic capture is ever added.)
+-->
+<plist version="1.0">
+<dict>
+	<!-- ===== Core bundle identity ===== -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+
+	<!-- $(EXECUTABLE_NAME) / $(PRODUCT_*) are resolved by the build system at
+	     packaging time so this plist stays target-agnostic. -->
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+
+	<key>CFBundleDisplayName</key>
+	<string>App Audio Controller</string>
+
+	<!-- Standard bundle package type for an application. -->
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+
+	<!-- Marketing + build numbers; injected from project settings so they stay
+	     in sync with the signed binary (important: a stable signing identity +
+	     consistent versioning lets TCC persist the audio-capture grant across
+	     rebuilds instead of re-prompting every launch). -->
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+
+	<!-- ===== Menu-bar-only agent ===== -->
+	<!-- LSUIElement = true: status-bar item only, no Dock icon, no main menu.
+	     Preferred over LSBackgroundOnly because we DO have UI (the MenuBarExtra
+	     popover) and must remain able to show the TCC consent dialog. -->
+	<key>LSUIElement</key>
+	<true/>
+
+	<!-- ===== Minimum OS ===== -->
+	<!-- Tap symbols link from 14.2 (this floor); the tap CODE is additionally
+	     guarded with @available(macOS 14.4, *) in Swift since 14.4 is Apple's
+	     documented/supported version for system-audio capture. -->
+	<key>LSMinimumSystemVersion</key>
+	<string>14.2</string>
+
+	<!-- ===== Privacy / TCC purpose strings ===== -->
+	<!-- THE audio-capture (process tap) consent string. Shown by the OS the
+	     first time capture starts. Must be NSAudioCaptureUsageDescription,
+	     NOT NSMicrophoneUsageDescription. -->
+	<key>NSAudioCaptureUsageDescription</key>
+	<string>App Audio Controller captures the audio output of the app you choose so it can apply an equalizer and per-app volume, and route the sound to your selected output device. No microphone audio is recorded.</string>
+
+	<!-- ===== Misc ===== -->
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026. All rights reserved.</string>
+
+	<!-- High-resolution capable; standard for any modern SwiftUI app. -->
+	<key>NSHighResolutionCapable</key>
+	<true/>
+
+	<!-- This app is a pure SwiftUI App-lifecycle app (MenuBarExtra Scene); it
+	     does not use a main storyboard/NIB, so no NSMainNibFile /
+	     NSMainStoryboardFile key is present (their absence is correct here). -->
+</dict>
+</plist>
