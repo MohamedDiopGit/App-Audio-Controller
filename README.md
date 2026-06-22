@@ -8,6 +8,16 @@ Per-app volume control, 10-band EQ, per-app audio routing, system volume, and mo
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/main-panel.png" width="340" alt="Main control panel"/>
+  &nbsp;&nbsp;
+  <img src="screenshots/audio-devices.png" width="640" alt="Audio Devices window"/>
+</p>
+
+---
+
 ## Features
 
 | Feature | Description |
