@@ -49,7 +49,7 @@
 	<!-- $(EXECUTABLE_NAME) / $(PRODUCT_*) are resolved by the build system at
 	     packaging time so this plist stays target-agnostic. -->
 	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
+	<string>AppAudioController</string>
 
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>

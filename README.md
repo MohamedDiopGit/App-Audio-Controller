@@ -57,26 +57,36 @@ Per-app volume control, 10-band EQ, per-app audio routing, system volume, and mo
 ### First-time setup
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/AppAudioController.git
-cd AppAudioController
+# 1. Clone the repository in your prefered location
+APP_NAME="App-Audio-Controller"
 
-# 2. Create the .app bundle skeleton (once only)
-APP=~/Desktop/AppAudioController.app
-mkdir -p "$APP/Contents/MacOS"
-cp Config/Info.plist "$APP/Contents/"
+git clone "https://github.com/<YOUR USERNAME>/${APP_NAME}.git"
+cd "$APP_NAME"
 
-# 3. Build and install
+# 2. Create the application bundle
+APP_PATH="$HOME/Desktop/${APP_NAME}.app"
+
+mkdir -p "$APP_PATH/Contents/MacOS"
+
+cp Config/Info.plist "$APP_PATH/Contents/Info.plist"
+
+# 3. Build the application
 swift build -c release
-cp .build/release/AppAudioController "$APP/Contents/MacOS/"
 
-# 4. Sign with the required audio-capture entitlement
-codesign --force --deep \
+# 4. Install the executable
+cp ".build/release/AppAudioController" \
+   "$APP_PATH/Contents/MacOS/AppAudioController"
+
+# 5. Sign the application
+codesign \
+  --force \
+  --deep \
   --entitlements Config/AppAudioController.entitlements \
-  --sign - "$APP"
+  --sign - \
+  "$APP_PATH"
 
-# 5. Launch
-open "$APP"
+# 6. Launch the application
+open "$APP_PATH"
 ```
 
 On first launch macOS will show **"AppAudioController.app would like access to record your system audio"** — click **Allow**. This appears once per signing identity.
