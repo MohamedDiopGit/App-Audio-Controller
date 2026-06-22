@@ -55,7 +55,7 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>Audio Controller</string>
 
 	<key>CFBundleDisplayName</key>
 	<string>App Audio Controller</string>
