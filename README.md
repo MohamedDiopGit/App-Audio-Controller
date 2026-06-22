@@ -1,6 +1,6 @@
 # AppAudioController
 
-A **per-app audio** macOS menu-bar app built entirely on public macOS 14+ APIs.  
+A macOS menu-bar app for per-app audio control, built entirely on public macOS 14+ APIs.  
 Per-app volume control, 10-band EQ, per-app audio routing, system volume, and more — no kext, no HAL plugin, no private SPI.
 
 > **Requires macOS 14.4+** (uses `CATapDescription` + `AudioHardwareCreateProcessTap`, available from 14.2 but fully supported from 14.4).  

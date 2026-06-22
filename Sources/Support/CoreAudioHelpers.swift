@@ -1,6 +1,6 @@
 //
 //  CoreAudioHelpers.swift
-//  per-app audio menu-bar app
+//  AppAudioController
 //
 //  Support/CoreAudioHelpers.swift
 //

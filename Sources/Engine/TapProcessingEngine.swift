@@ -1,6 +1,6 @@
 // Engine/TapProcessingEngine.swift
 //
-// The PLAYBACK half of the per-app audio audio pipeline.
+// The PLAYBACK half of the per-app audio pipeline.
 //
 // ARCHITECTURE (locked, see BUILD SPEC):
 // This is a STANDALONE AVAudioEngine that has NOTHING to do with the capture side.

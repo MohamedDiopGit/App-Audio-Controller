@@ -2,7 +2,7 @@
 //  AppAudioControllerApp.swift
 //  AppAudioController
 //
-//  SwiftUI @main entry point for a per-app audio, menu-bar-only macOS app.
+//  SwiftUI @main entry point for a menu-bar-only macOS app.
 //
 //  ROLE OF THIS FILE (per BUILD SPEC):
 //  - Declare the `@main` App and configure it as a menu-bar-only agent using

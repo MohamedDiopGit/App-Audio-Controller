@@ -3,7 +3,7 @@
 <!--
   Config/Info.plist
   =================
-  per-app audio menu-bar-only macOS app that taps another application's
+  Menu-bar-only macOS app that taps another application's
   audio output (Core Audio Process Tap API), runs it through a 10-band
   parametric EQ + per-app volume, and routes it to a chosen output device.
 
