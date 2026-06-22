@@ -10,11 +10,18 @@ Per-app volume control, 10-band EQ, per-app audio routing, system volume, and mo
 
 ## Screenshots
 
-<p align="center">
-  <img src="screenshots/main-panel.png" width="340" alt="Main control panel"/>
-  &nbsp;&nbsp;
-  <img src="screenshots/audio-devices.png" width="640" alt="Audio Devices window"/>
-</p>
+<table>
+  <tr>
+    <td align="center"><b>Control Panel</b><br/><sub>Per-app volume, EQ, and routing from the menu bar</sub></td>
+    <td align="center"><b>Sources view</b><br/><sub>Favourites, paused apps, and other sources</sub></td>
+    <td align="center"><b>Audio Devices window</b><br/><sub>Volume, balance, and sample rate for every device</sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/control-panel.png" width="240"/></td>
+    <td><img src="screenshots/control-panel-sources.png" width="240"/></td>
+    <td><img src="screenshots/audio-devices-window.png" width="480"/></td>
+  </tr>
+</table>
 
 ---
 
